@@ -1,0 +1,11 @@
+Django==6.0.7
+whitenoise==6.12.0
+django-unfold==0.107.0
+Pillow==12.3.0
+# production
+gunicorn==26.2.0
+psycopg[binary]==3.3.6
+django-anymail[amazon-ses]==15.2
+django-storages[s3]==1.14.6
+boto3==1.43.100
+anthropic[bedrock]==1.8.0

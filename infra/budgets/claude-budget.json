@@ -1,0 +1,78 @@
+{
+  "budgets": [
+    {
+      "BudgetName": "koreanpages-monthly",
+      "BudgetType": "COST",
+      "TimeUnit": "MONTHLY",
+      "BudgetLimit": {
+        "Amount": "100",
+        "Unit": "USD"
+      }
+    },
+    {
+      "BudgetName": "koreanpages-claude-monthly",
+      "BudgetType": "COST",
+      "TimeUnit": "MONTHLY",
+      "BudgetLimit": {
+        "Amount": "450",
+        "Unit": "USD"
+      },
+      "CostFilters": {
+        "Service": [
+          "Amazon Bedrock",
+          "Claude Opus 4.6 (Amazon Bedrock Edition)",
+          "Claude Sonnet 4.6 (Amazon Bedrock Edition)",
+          "Claude Haiku 4.5 (Amazon Bedrock Edition)"
+        ]
+      },
+      "Notifications": [
+        {
+          "NotificationType": "ACTUAL",
+          "ComparisonOperator": "GREATER_THAN",
+          "Threshold": 80
+        },
+        {
+          "NotificationType": "ACTUAL",
+          "ComparisonOperator": "GREATER_THAN",
+          "Threshold": 100
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "BudgetName": "koreanpages-claude-monthly",
+      "ActionType": "APPLY_IAM_POLICY",
+      "ApprovalModel": "AUTOMATIC",
+      "ActionThreshold": {
+        "ActionThresholdValue": 120,
+        "ActionThresholdType": "PERCENTAGE"
+      },
+      "Definition": {
+        "IamActionDefinition": {
+          "PolicyArn": "arn:aws:iam::<ACCOUNT_ID>:policy/koreanpages-deny-claude",
+          "Roles": [
+            "<APP_INSTANCE_ROLE>"
+          ]
+        }
+      },
+      "ExecutionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/koreanpages-budgets-action",
+      "_note": "Currently fails: execution role lacks iam:AttachRolePolicy (docs/open-findings.md OF-1)"
+    }
+  ],
+  "deny_policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Deny",
+        "Action": [
+          "bedrock:InvokeModel",
+          "bedrock:InvokeModelWithResponseStream",
+          "bedrock:Converse",
+          "bedrock:ConverseStream"
+        ],
+        "Resource": "*"
+      }
+    ]
+  }
+}

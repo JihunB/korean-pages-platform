@@ -1,0 +1,61 @@
+name: security
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 21 * * 0"   # weekly, so new CVEs in pinned dependencies show up
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  code:
+    name: Static analysis (bandit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install bandit
+      - run: bandit -r app tools -ll
+
+  dependencies:
+    name: Dependency audit (pip-audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pip-audit
+      # Known, triaged advisories are listed in docs/open-findings.md (OF-8).
+      # Django: GeoDjango only (not used). Pillow: decoders restricted to JPEG/PNG/GIF/WebP (F-2).
+      # cryptography: PKCS#7 / chain-building issues in features not used. Remove each once upgraded.
+      - run: >
+          pip-audit -r requirements.txt
+          --ignore-vuln PYSEC-2026-3717
+          --ignore-vuln PYSEC-2026-4035
+          --ignore-vuln CVE-2026-112895
+          --ignore-vuln CVE-2026-112400
+          --ignore-vuln CVE-2026-112397
+          --ignore-vuln CVE-2026-112896
+          --ignore-vuln CVE-2026-112897
+          --ignore-vuln CVE-2026-112395
+          --ignore-vuln CVE-2026-112404
+          --ignore-vuln CVE-2026-112899
+          --ignore-vuln PYSEC-2026-3554
+          --ignore-vuln PYSEC-2026-3552
+          --ignore-vuln PYSEC-2026-3553
