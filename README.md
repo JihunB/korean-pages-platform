@@ -83,5 +83,5 @@ Python · Django 6 · PostgreSQL · gunicorn · AWS (Elastic Beanstalk, EC2, ALB
 
 ## Contact
 
-Jihun Baek: [LinkedIn](https://www.linkedin.com/in/jihun-baek-505544270) · [jihun.me](https://jihun.me)
+Jihun Baek: [LinkedIn](https://www.linkedin.com/in/jihun-baek-505544270) · [GitHub](https://github.com/JihunB)
 Security issues: see [SECURITY.md](SECURITY.md)
