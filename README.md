@@ -1,6 +1,6 @@
 # Korean Pages Platform
 
-[![security](https://github.com/<your-github-username>/korean-pages-platform/actions/workflows/security.yml/badge.svg)](.github/workflows/security.yml)
+[![security](https://github.com/JihunB/korean-pages-platform/actions/workflows/security.yml/badge.svg)](.github/workflows/security.yml)
 
 Migration of a live business directory (11,000+ Korean-owned businesses across Australia) from a legacy hosted PHP CMS to Django on AWS, rebuilt so that every page looks and behaves exactly as before while the platform underneath was replaced and hardened.
 
