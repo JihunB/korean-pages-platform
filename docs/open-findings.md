@@ -13,3 +13,7 @@ Known gaps, in priority order. These are tracked openly rather than left out.
 | OF-7 | Settings fall back to development values when a variable is missing: `DJANGO_DEBUG` defaults to on, and `SECRET_KEY` to a development key (production sets both; the key comes from Secrets Manager) | Low | Fail closed: default debug off, and refuse to start without a secret key outside local development |
 | OF-8 | Dependency updates: Pillow 12.3 → 13.x (decoder CVEs, already mitigated by F-2); Django 6.0.7 → 6.0.8 (GeoDjango CVEs, not used); cryptography 48 → 50 (PKCS#7 issues, not used) | Low | Upgrade in one release behind the smoke test |
 | OF-9 | SES still in sandbox mode | Low (availability) | Request production access |
+| OF-10 | No CloudTrail trail: only the default 90-day event history, so there's no durable audit log of API activity | Medium | Multi-region trail to a locked-down S3 bucket with log-file validation |
+| OF-11 | GuardDuty, Security Hub and AWS Config are not enabled | Medium | Enable GuardDuty, plus Security Hub with the AWS Foundational Security Best Practices standard |
+| OF-12 | The Bedrock budget's service filter doesn't include Stable Image Core, so image spend isn't covered by its alerts (the in-app ceiling does count it) | Low | Add the service to the budget filter |
+| OF-13 | The `Project` cost-allocation tag isn't activated, so spend can't be split by tag in Cost Explorer | Low | Activate the tag in Billing |
