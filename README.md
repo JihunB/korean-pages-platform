@@ -12,7 +12,7 @@ Migration of a live business directory (11,000+ Korean-owned businesses across A
 
 ---
 
-## Why
+## Project Objectives
 
 The old site ran on a commercial CMS on shared hosting that was being shut down. A review before migration found:
 
