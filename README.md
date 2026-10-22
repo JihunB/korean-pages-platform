@@ -23,17 +23,6 @@ The old site ran on a commercial CMS on shared hosting that was being shut down.
 
 Details: [docs/legacy-risk-assessment.md](docs/legacy-risk-assessment.md)
 
-## Results
-
-| | |
-|---|---|
-| Listings served | 11,068 |
-| Production releases | 55+, rolling, no downtime |
-| Legacy password hashes migrated | 0 (launched with zero member accounts) |
-| Secrets in repository history | 0 (scanned before publishing) |
-| Release gate | 61 automated checks before every deploy |
-| Vulnerabilities fixed during the security review for this repo | SSRF in an admin link importer; Pillow decoder exposure on uploads ([docs/findings-fixed.md](docs/findings-fixed.md)) |
-
 ## Architecture
 
 ![architecture](docs/images/architecture.svg)
@@ -63,6 +52,17 @@ More: [docs/architecture.md](docs/architecture.md)
 - Threat model: [docs/threat-model.md](docs/threat-model.md)
 - AI guardrails: [docs/ai-guardrails.md](docs/ai-guardrails.md)
 - What's still open: [docs/open-findings.md](docs/open-findings.md)
+
+## Results
+
+| | |
+|---|---|
+| Listings served | 11,068 |
+| Production releases | 55+, rolling, no downtime |
+| Legacy password hashes migrated | 0 (launched with zero member accounts) |
+| Secrets in repository history | 0 (scanned before publishing) |
+| Release gate | 61 automated checks before every deploy |
+| Vulnerabilities fixed during the security review for this repo | SSRF in an admin link importer; Pillow decoder exposure on uploads ([docs/findings-fixed.md](docs/findings-fixed.md)) |
 
 ## Repository contents
 
